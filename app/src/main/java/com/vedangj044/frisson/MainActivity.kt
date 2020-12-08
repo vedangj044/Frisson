@@ -1,4 +1,4 @@
-package com.vedangj044.frission
+package com.vedangj044.frisson
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

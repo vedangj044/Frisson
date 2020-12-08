@@ -1,4 +1,4 @@
-package com.vedangj044.frission
+package com.vedangj044.frisson
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

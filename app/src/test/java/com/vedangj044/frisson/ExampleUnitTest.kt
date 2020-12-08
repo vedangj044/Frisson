@@ -1,4 +1,4 @@
-package com.vedangj044.frission
+package com.vedangj044.frisson
 
 import org.junit.Test
 
