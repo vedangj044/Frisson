@@ -2,6 +2,6 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:drawable="@color/splashImageBackground" />
-    <item android:drawable="@mipmap/ic_launcher" android:gravity="center" />
+    <item android:drawable="@drawable/ic_app_icon" android:gravity="center" />
 
 </layer-list>
