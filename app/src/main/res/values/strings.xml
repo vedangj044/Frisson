@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Frisson</string>
+    <string name="calender_icon">calender icon</string>
+    <string name="location_icon">location icon</string>
+    <string name="shape_icon">shape_icon</string>
+    <string name="map_image">Map image</string>
 </resources>
