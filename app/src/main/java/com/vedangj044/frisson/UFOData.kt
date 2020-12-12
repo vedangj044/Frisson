@@ -18,7 +18,7 @@ data class UFOData(
     @Json(name = "shape")
     val shape: String,
 
-    @Json(name = "shape")
+    @Json(name = "sighting_date")
     val sightingDate: String,
 
     @Json(name = "state")
