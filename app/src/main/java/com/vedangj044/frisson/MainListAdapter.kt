@@ -10,17 +10,18 @@ import com.google.android.material.textview.MaterialTextView
 
 class MainListAdapter : PagingDataAdapter<UFOData, MainListAdapter.ViewHolder>(DataDifferntiator) {
 
+    // To be replaced with data binding //
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        var list_item_keywords = view.findViewById<MaterialTextView>(R.id.list_item_keywords)
+        private var list_item_keywords: MaterialTextView = view.findViewById(R.id.list_item_keywords)
 
         fun clear() {
-            list_item_keywords.setText("")
+            list_item_keywords.text = ""
 
         }
 
         fun bind(item: UFOData) {
-            list_item_keywords.setText(item.keywords)
+            list_item_keywords.text = item.keywords
         }
 
 
@@ -28,9 +29,9 @@ class MainListAdapter : PagingDataAdapter<UFOData, MainListAdapter.ViewHolder>(D
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var item= getItem(position);
+        val item= getItem(position)
         if(item == null) {
-            holder.clear();
+            holder.clear()
         } else {
             holder.bind(item)
         }

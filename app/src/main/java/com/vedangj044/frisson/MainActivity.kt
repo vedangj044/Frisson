@@ -12,9 +12,9 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var viewModel: MainViewModel
-    lateinit var mainListAdapter: MainListAdapter
-    lateinit var recyclerView:RecyclerView
+    private lateinit var viewModel: MainViewModel
+    private lateinit var mainListAdapter: MainListAdapter
+    private lateinit var recyclerView:RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
