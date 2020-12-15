@@ -1,13 +1,26 @@
 package com.vedangj044.frisson
 
+import android.graphics.drawable.ColorDrawable
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import coil.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+
+@BindingAdapter("setFirstLetterCapital")
+fun TextView.setFirstLetterCapital(string: String){
+    text = firstLetterCapital(string)
+}
+
+// Created separate function to avoid string concatenation warning
+private fun firstLetterCapital(string: String): String {
+    return string[0].toUpperCase() + string.substring(1)
+}
 
 @BindingAdapter("setLocation")
 fun TextView.setLocation(item: UFOData) {
-    text = item.state + ", " + item.country + " \u2022 ";
+    text = String.format(resources.getString(R.string.state_country), item.state, item.country)
 }
 
 @BindingAdapter("getDateFromDateTime")
@@ -45,5 +58,8 @@ fun ImageView.setShape(shape: String) {
 
 @BindingAdapter("setImageCoil")
 fun setImageCoil(view: ImageView, url: String){
-    view.load(url)
+
+    Glide.with(view).load(url)
+        .apply(RequestOptions().placeholder(ColorDrawable(ContextCompat.getColor(view.context, R.color.placeholder_color))))
+        .into(view)
 }

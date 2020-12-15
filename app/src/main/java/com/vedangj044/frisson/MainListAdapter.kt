@@ -2,16 +2,13 @@ package com.vedangj044.frisson
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.textview.MaterialTextView
 import com.vedangj044.frisson.databinding.ListItemLayoutBinding
 
 class MainListAdapter : PagingDataAdapter<UFOData, MainListAdapter.ViewHolder>(DataDifferntiator) {
 
-    // To be replaced with data binding //
     class ViewHolder(private val view: ListItemLayoutBinding) : RecyclerView.ViewHolder(view.root) {
 
         fun bind(ufoData: UFOData) {
@@ -26,7 +23,7 @@ class MainListAdapter : PagingDataAdapter<UFOData, MainListAdapter.ViewHolder>(D
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = ListItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false);
+        val view = ListItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
 
