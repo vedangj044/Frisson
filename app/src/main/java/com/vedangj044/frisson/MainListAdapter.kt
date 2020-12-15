@@ -1,50 +1,33 @@
 package com.vedangj044.frisson
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
+import com.vedangj044.frisson.databinding.ListItemLayoutBinding
 
 class MainListAdapter : PagingDataAdapter<UFOData, MainListAdapter.ViewHolder>(DataDifferntiator) {
 
     // To be replaced with data binding //
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(private val view: ListItemLayoutBinding) : RecyclerView.ViewHolder(view.root) {
 
-        private var list_item_keywords: MaterialTextView = view.findViewById(R.id.list_item_keywords)
-
-        fun clear() {
-            list_item_keywords.text = ""
-
+        fun bind(ufoData: UFOData) {
+            view.ufoData = ufoData
         }
-
-        fun bind(item: UFOData) {
-            list_item_keywords.text = item.keywords
-        }
-
-
 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item= getItem(position)
-        if(item == null) {
-            holder.clear()
-        } else {
-            holder.bind(item)
-        }
-
+        getItem(position)?.let { holder.bind(it) }
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater
-                .from(parent.context)
-                .inflate(R.layout.list_item_layout, parent, false)
-        )
+        val view = ListItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false);
+        return ViewHolder(view)
     }
 
     object DataDifferntiator : DiffUtil.ItemCallback<UFOData>() {

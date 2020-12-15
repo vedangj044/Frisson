@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -30,6 +31,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        dataBinding true
+    }
 }
 
 dependencies {
@@ -52,4 +57,6 @@ dependencies {
     implementation "com.squareup.moshi:moshi-kotlin:1.11.0"
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+
+    implementation("io.coil-kt:coil:1.1.0")
 }
