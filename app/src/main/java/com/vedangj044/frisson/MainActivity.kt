@@ -1,13 +1,16 @@
 package com.vedangj044.frisson
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import ru.semper_viventem.backdrop.BackdropBehavior
 
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     private lateinit var mainListAdapter: MainListAdapter
     private lateinit var recyclerView:RecyclerView
+    private lateinit var backdropBehavior: BackdropBehavior
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +28,12 @@ class MainActivity : AppCompatActivity() {
         setupList()
         setupView()
 
+        backdropBehavior = findViewById<CoordinatorLayout>(R.id.frontLayout).findBehavior()
+        with(backdropBehavior) {
+            attachBackLayout(R.id.backLayout)
+            setOpenedIcon(R.drawable.ic_backdrop_close)
+            setClosedIcon(R.drawable.ic_backdrop_menu)
+        }
     }
 
     private fun setupView() {
@@ -51,5 +61,12 @@ class MainActivity : AppCompatActivity() {
                 this,
                 MainViewModelFactory(APIService.getApiService())
             )[MainViewModel::class.java]
+    }
+
+    fun <T : CoordinatorLayout.Behavior<*>> View.findBehavior(): T = layoutParams.run {
+        if (this !is CoordinatorLayout.LayoutParams) throw IllegalArgumentException("View's layout params should be CoordinatorLayout.LayoutParams")
+
+        (layoutParams as CoordinatorLayout.LayoutParams).behavior as? T
+            ?: throw IllegalArgumentException("Layout's behavior is not current behavior")
     }
 }

@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 
 @BindingAdapter("setFirstLetterCapital")
@@ -59,7 +60,13 @@ fun ImageView.setShape(shape: String) {
 @BindingAdapter("setImageCoil")
 fun setImageCoil(view: ImageView, url: String){
 
+    /*
+    This caching method is used because we have less than 100 images
+    which repeat as we progress, so using the url as the cache key is the best
+    strategy.
+     */
     Glide.with(view).load(url)
-        .apply(RequestOptions().placeholder(ColorDrawable(ContextCompat.getColor(view.context, R.color.placeholder_color))))
+        .apply(RequestOptions().placeholder(ColorDrawable(ContextCompat.getColor(view.context, R.color.placeholder_color)))
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
         .into(view)
 }

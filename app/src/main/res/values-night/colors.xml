@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="placeholder_color">#4c4c4c</color>
+    <color name="elevated_background">#212121</color>
+    <color name="backdrop_background">#000000</color>
+    <color name="backdrop_text_color">#FFFFFF</color>
 </resources>
