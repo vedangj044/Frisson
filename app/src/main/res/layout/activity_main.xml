@@ -51,6 +51,7 @@
             style="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/result_count_text_view"
             tools:text="Hello"
             android:padding="16dp"
             android:textSize="16sp"/>

@@ -8,5 +8,8 @@ data class ApiResponse(
     val hasMore: Boolean,
 
     @Json(name = "items")
-    val items: List<UFOData>
+    val items: List<UFOData>,
+
+    @Json(name = "results")
+    val results: Int
 )

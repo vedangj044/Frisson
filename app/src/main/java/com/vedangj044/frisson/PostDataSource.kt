@@ -1,11 +1,16 @@
 package com.vedangj044.frisson
 
 import androidx.paging.PagingSource
-import java.lang.Exception
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 // Reference Link : https://blog.mindorks.com/paging-3-tutorial
 
 class PostDataSource(private val apiService: APIService): PagingSource<Int, UFOData>(){
+
+    private val _resultCount = MutableStateFlow(0)
+    val resultCount: StateFlow<Int> get() = _resultCount
+
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UFOData> {
 
@@ -14,6 +19,7 @@ class PostDataSource(private val apiService: APIService): PagingSource<Int, UFOD
             val response = apiService.getListData(currentLoadingPageKey)
             val responseData = mutableListOf<UFOData>()
             val data = response.body()?.items ?: emptyList()
+            _resultCount.value = response.body()?.results!!
             responseData.addAll(data)
 
             val prevKey = if (currentLoadingPageKey == 1) null else currentLoadingPageKey - 1
@@ -27,5 +33,4 @@ class PostDataSource(private val apiService: APIService): PagingSource<Int, UFOD
             return LoadResult.Error(e)
         }
     }
-
 }
