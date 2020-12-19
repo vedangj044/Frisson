@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Frisson" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.Frisson" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#ef9a9a</item>
         <item name="colorPrimaryVariant">#ba6b6c</item>
