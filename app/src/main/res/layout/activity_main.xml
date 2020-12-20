@@ -21,7 +21,19 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="@string/app_name"/>
+            app:title="@string/app_name"
+            app:titleTextColor="@color/backdrop_text_color">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/theme_change_icon"
+                android:src="@drawable/ic_light_mode"
+                android:layout_gravity="end"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"/>
+
+        </androidx.appcompat.widget.Toolbar>
 
         <!-- For example, NavigationView. Or you can use anything -->
         <com.google.android.material.navigation.NavigationView

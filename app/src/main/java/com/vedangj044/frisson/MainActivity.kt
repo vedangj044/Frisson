@@ -48,7 +48,9 @@ class MainActivity : AppCompatActivity() {
 
         resultCountTextView = findViewById(R.id.result_count_text_view)
         viewModel.count.observe(this, Observer {
-                value -> resultCountTextView.text = value.toString()
+                value -> resultCountTextView.text =
+            String.format(resources.getString(R.string.results_count),
+                getApproximateValue(value))
         })
     }
 

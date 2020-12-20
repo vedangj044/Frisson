@@ -5,4 +5,6 @@
     <string name="shape_icon">shape_icon</string>
     <string name="map_image">Map image</string>
     <string name="state_country">%1$s, %2$s \u2022 </string>
+    <string name="theme_change_icon">theme change icon</string>
+    <string name="results_count">%1$s results</string>
 </resources>
