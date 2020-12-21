@@ -76,6 +76,16 @@
 
     </LinearLayout>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/progress_bar"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/backdrop_text_color"
+
+        />
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

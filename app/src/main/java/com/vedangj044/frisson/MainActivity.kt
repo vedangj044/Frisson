@@ -3,6 +3,7 @@ package com.vedangj044.frisson
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -26,11 +27,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var backdropBehavior: BackdropBehavior
     private lateinit var resultCountTextView: TextView
     private lateinit var themeToggleButton: ImageView
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_Frisson)
         setContentView(R.layout.activity_main)
+
+        progressBar = findViewById(R.id.progress_bar)
+
         setupViewModel()
         setupList()
         setupView()
@@ -77,6 +82,8 @@ class MainActivity : AppCompatActivity() {
                 value -> resultCountTextView.text =
             String.format(resources.getString(R.string.results_count),
                 getApproximateValue(value))
+
+            if(value != 0) progressBar.visibility = View.GONE
         })
     }
 
