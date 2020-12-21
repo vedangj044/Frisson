@@ -2,9 +2,12 @@ package com.vedangj044.frisson
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.datastore.preferences.createDataStore
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -22,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView:RecyclerView
     private lateinit var backdropBehavior: BackdropBehavior
     private lateinit var resultCountTextView: TextView
+    private lateinit var themeToggleButton: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         setupViewModel()
         setupList()
         setupView()
+        observeTheme()
 
         backdropBehavior = findViewById<CoordinatorLayout>(R.id.frontLayout).findBehavior()
         with(backdropBehavior) {
@@ -37,6 +42,27 @@ class MainActivity : AppCompatActivity() {
             setOpenedIcon(R.drawable.ic_backdrop_close)
             setClosedIcon(R.drawable.ic_backdrop_menu)
         }
+
+        themeToggleButton = findViewById(R.id.theme_toggle_button)
+        themeToggleButton.setOnClickListener {
+            viewModel.toggleTheme()
+        }
+
+    }
+
+    private fun observeTheme(){
+        viewModel.themeMode.observe(this, Observer {
+            value -> when(value) {
+                ThemeDataSource.lightMode -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    themeToggleButton.setImageResource(R.drawable.ic_dark_mode)
+                }
+                ThemeDataSource.darkMode -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    themeToggleButton.setImageResource(R.drawable.ic_light_mode)
+                }
+            }
+        })
     }
 
     private fun setupView() {
@@ -69,7 +95,8 @@ class MainActivity : AppCompatActivity() {
         viewModel =
             ViewModelProvider(
                 this,
-                MainViewModelFactory(APIService.getApiService())
+                MainViewModelFactory(APIService.getApiService(),
+                    createDataStore(name = "themeMode"))
             )[MainViewModel::class.java]
     }
 

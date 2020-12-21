@@ -11,6 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <!-- Customize your theme here. -->
     </style>
     
@@ -25,6 +26,12 @@
         <item name="android:background">?attr/colorAccent</item>
     </style>
 
+    <!--    Animation for theme change-->
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/slide_out_right</item>
+    </style>
+
+    <!--    Text style with lato font-->
     <style name="TextAppearance.MdcTypographyStyles.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">@font/lato</item>
         <item name="android:fontFamily">@font/lato</item>
