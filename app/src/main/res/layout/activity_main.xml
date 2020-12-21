@@ -83,6 +83,7 @@
         android:id="@+id/progress_bar"
         android:layout_gravity="center"
         android:indeterminateTint="@color/backdrop_text_color"
+
         />
 
 
