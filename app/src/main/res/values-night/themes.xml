@@ -23,9 +23,4 @@
         <item name="android:statusBarColor">@color/splashImageBackground</item>
 
     </style>
-
-    <style name="Theme.Frisson.Progressbar">
-        <item name="colorAccent">@color/backdrop_text_color</item>
-    </style>
-
 </resources>

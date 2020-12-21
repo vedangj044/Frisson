@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         progressBar = findViewById(R.id.progress_bar)
-        progressBar.visibility = View.VISIBLE
 
         setupViewModel()
         setupList()
