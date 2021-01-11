@@ -3,5 +3,7 @@
 
     <group android:checkableBehavior="single">
 
+        <item android:title="@string/app_name" />
+
     </group>
 </menu>

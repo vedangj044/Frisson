@@ -5,87 +5,67 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity"
+    android:background="@color/backdrop_background"
     android:id="@+id/layout_main">
 
-    <!-- BackLayout for BackDrop -->
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/backLayout"
+    <!-- Must contain a Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:elevation="0dp"
-        android:background="@color/backdrop_background">
+        app:title="@string/app_name"
+        app:titleTextColor="@color/backdrop_text_color">
 
-        <!-- Must contain a Toolbar -->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="@string/app_name"
-            app:titleTextColor="@color/backdrop_text_color">
-
-            <ImageView
-                android:id="@+id/theme_toggle_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/theme_change_icon"
-                android:src="@drawable/ic_light_mode"
-                android:layout_gravity="end"
-                android:paddingEnd="16dp"
-                android:paddingStart="16dp"/>
-
-        </androidx.appcompat.widget.Toolbar>
-
-        <!-- For example, NavigationView. Or you can use anything -->
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigationView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            app:elevation="0dp"
-            android:paddingEnd="8dp"
-            android:paddingStart="8dp"
-            app:itemBackground="@drawable/bg_menu_item"
-            app:itemTextColor="@color/backdrop_text_color"
-            app:menu="@menu/main_menu"/>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <LinearLayout
-        android:id="@+id/frontLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_behavior="ru.semper_viventem.backdrop.BackdropBehavior"
-        android:elevation="0dp"
-        android:background="@drawable/bg_top_radius">
-
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
+        <ImageView
+            android:id="@+id/theme_toggle_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/result_count_text_view"
-            tools:text="Hello"
-            android:padding="16dp"
-            android:textSize="16sp"/>
+            android:contentDescription="@string/theme_change_icon"
+            android:src="@drawable/ic_light_mode"
+            android:layout_gravity="end"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    </androidx.appcompat.widget.Toolbar>
 
-    </LinearLayout>
+<!--    &lt;!&ndash; BackLayout for BackDrop &ndash;&gt;-->
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/backLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        app:elevation="0dp"-->
+<!--        android:background="@color/backdrop_background">-->
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+<!--        &lt;!&ndash; For example, NavigationView. Or you can use anything &ndash;&gt;-->
+<!--        <com.google.android.material.navigation.NavigationView-->
+<!--            android:id="@+id/navigationView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            app:elevation="0dp"-->
+<!--            android:paddingEnd="8dp"-->
+<!--            android:paddingStart="8dp"-->
+<!--            app:itemBackground="@drawable/bg_menu_item"-->
+<!--            app:itemTextColor="@color/backdrop_text_color"-->
+<!--            app:menu="@menu/main_menu"/>-->
 
-        android:id="@+id/progress_bar"
-        android:layout_gravity="center"
-        android:indeterminateTint="@color/backdrop_text_color"
-
-        />
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
 
 
+    <fragment
+        android:id="@+id/filter_fragment"
+        android:name="com.vedangj044.frisson.MainListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="1dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        app:behavior_peekHeight="70dp"
+        app:behavior_skipCollapsed="true"
+        app:layout_behavior="com.vedangj044.frisson.GestureLockedBottomSheetBehavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

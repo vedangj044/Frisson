@@ -13,17 +13,4 @@ interface APIService {
     @GET("ufo")
     suspend fun getListData(@Query("page") pageNumber: Int): Response<ApiResponse>
 
-    companion object{
-
-        private val moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-
-        fun getApiService(): APIService = Retrofit.Builder()
-            .baseUrl("https://azdoktvepqunazyaay.pythonanywhere.com/")
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-            .create(APIService::class.java)
-    }
-
 }

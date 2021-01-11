@@ -11,7 +11,6 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <!-- Customize your theme here. -->
     </style>
     
@@ -28,7 +27,7 @@
 
     <!--    Animation for theme change-->
     <style name="WindowAnimationTransition">
-        <item name="android:windowEnterAnimation">@android:anim/slide_out_right</item>
+        <item name="android:windowExitAnimation">@android:anim/slide_in_left</item>
     </style>
 
     <!--    Text style with lato font-->

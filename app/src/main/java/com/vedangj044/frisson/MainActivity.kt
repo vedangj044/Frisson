@@ -1,10 +1,12 @@
 package com.vedangj044.frisson
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -14,45 +16,36 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.semper_viventem.backdrop.BackdropBehavior
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: MainViewModel
-    private lateinit var mainListAdapter: MainListAdapter
-    private lateinit var recyclerView:RecyclerView
-    private lateinit var backdropBehavior: BackdropBehavior
-    private lateinit var resultCountTextView: TextView
     private lateinit var themeToggleButton: ImageView
-    private lateinit var progressBar: ProgressBar
+    private val viewModel by viewModels<MainViewModel>()
+    private var listener: OnBottomSheetCallbacks? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_Frisson)
         setContentView(R.layout.activity_main)
 
-        progressBar = findViewById(R.id.progress_bar)
 
-        setupViewModel()
-        setupList()
-        setupView()
         observeTheme()
-
-        backdropBehavior = findViewById<CoordinatorLayout>(R.id.frontLayout).findBehavior()
-        with(backdropBehavior) {
-            attachBackLayout(R.id.backLayout)
-            setOpenedIcon(R.drawable.ic_backdrop_close)
-            setClosedIcon(R.drawable.ic_backdrop_menu)
-        }
 
         themeToggleButton = findViewById(R.id.theme_toggle_button)
         themeToggleButton.setOnClickListener {
             viewModel.toggleTheme()
         }
 
+        supportActionBar?.elevation = 0f
+
+        configureBackdrop()
     }
 
     private fun observeTheme(){
@@ -70,47 +63,36 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun setupView() {
-        lifecycleScope.launch {
-            viewModel.listData.collect {
-                mainListAdapter.submitData(it)
+    fun setOnBottomSheetCallbacks(onBottomSheetCallbacks: OnBottomSheetCallbacks) {
+        this.listener = onBottomSheetCallbacks
+    }
+
+    fun closeBottomSheet() {
+        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+
+    fun openBottomSheet() {
+        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    private var mBottomSheetBehavior: BottomSheetBehavior<View?>? = null
+
+    private fun configureBackdrop() {
+        val fragment = supportFragmentManager.findFragmentById(R.id.filter_fragment)
+
+        fragment?.view?.let {
+            BottomSheetBehavior.from(it).let { bs ->
+                bs.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+                        listener?.onStateChanged(bottomSheet, newState)
+                    }
+                })
+
+                bs.state = BottomSheetBehavior.STATE_EXPANDED
+                mBottomSheetBehavior = bs
             }
         }
-
-        resultCountTextView = findViewById(R.id.result_count_text_view)
-        viewModel.count.observe(this, Observer {
-                value -> resultCountTextView.text =
-            String.format(resources.getString(R.string.results_count),
-                getApproximateValue(value))
-
-            if(value != 0) progressBar.visibility = View.GONE
-        })
-    }
-
-    private fun setupList() {
-        mainListAdapter = MainListAdapter()
-
-        recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = mainListAdapter
-        }
-    }
-
-    private fun setupViewModel() {
-        viewModel =
-            ViewModelProvider(
-                this,
-                MainViewModelFactory(APIService.getApiService(),
-                    createDataStore(name = "themeMode"))
-            )[MainViewModel::class.java]
-    }
-
-    private fun <T : CoordinatorLayout.Behavior<*>> View.findBehavior(): T = layoutParams.run {
-        if (this !is CoordinatorLayout.LayoutParams) throw IllegalArgumentException("View's layout params should be CoordinatorLayout.LayoutParams")
-
-        (layoutParams as CoordinatorLayout.LayoutParams).behavior as? T
-            ?: throw IllegalArgumentException("Layout's behavior is not current behavior")
     }
 }

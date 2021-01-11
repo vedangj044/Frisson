@@ -7,10 +7,12 @@ import androidx.datastore.preferences.core.preferencesKey
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Singleton
 
 // Reference https://proandroiddev.com/using-livedata-flow-in-mvvm-part-i-a98fe06077a0
-
-class ThemeDataSource (private val dataStore: DataStore<Preferences>) {
+@Singleton
+class ThemeDataSource @Inject constructor(private val dataStore: DataStore<Preferences>) {
 
     companion object {
 

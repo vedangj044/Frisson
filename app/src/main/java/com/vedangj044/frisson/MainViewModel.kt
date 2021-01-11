@@ -2,13 +2,15 @@ package com.vedangj044.frisson
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.hilt.Assisted
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import kotlinx.coroutines.launch
 
-class MainViewModel(apiService: APIService, dataStore: DataStore<Preferences>) : ViewModel() {
+class MainViewModel @ViewModelInject constructor(private val pagingDataSource: PostDataSource, private val themeDataSource: ThemeDataSource) : ViewModel() {
 
     /*
     The variables are passed from the repository class as a stateFlow,
@@ -18,8 +20,6 @@ class MainViewModel(apiService: APIService, dataStore: DataStore<Preferences>) :
     reference : https://developer.android.com/kotlin/flow/stateflow-and-sharedflow
      */
 
-    private val pagingDataSource: PostDataSource = PostDataSource(apiService)
-    private val themeDataSource: ThemeDataSource = ThemeDataSource(dataStore)
 
     var count: LiveData<Int> = pagingDataSource.resultCount.asLiveData(viewModelScope.coroutineContext)
     var themeMode: LiveData<Int> = themeDataSource.themeMode.asLiveData(viewModelScope.coroutineContext)
