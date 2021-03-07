@@ -3,7 +3,7 @@ package com.vedangj044.frisson
 import com.squareup.moshi.Json
 import java.util.*
 
-data class UFODataDetail {
+data class UFODataDetail (
 
     @Json(name = "city")
     val city: String,
@@ -45,6 +45,5 @@ data class UFODataDetail {
     val state: String,
 
     @Json(name = "time")
-    val time: String,
-
-}
+    val time: String
+)

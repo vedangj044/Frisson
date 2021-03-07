@@ -8,6 +8,7 @@ import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainViewModel @ViewModelInject constructor(private val pagingDataSource: PostDataSource, private val themeDataSource: ThemeDataSource) : ViewModel() {
@@ -28,8 +29,11 @@ class MainViewModel @ViewModelInject constructor(private val pagingDataSource: P
         pagingDataSource
     }.flow.cachedIn(viewModelScope)
 
-    fun toggleTheme() {
+    fun toggleTheme(flag: Boolean = false) {
         viewModelScope.launch {
+            if (flag) {
+                delay(500)
+            }
             themeDataSource.toggleTheme()
         }
     }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.datastore.preferences.createDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -31,6 +32,7 @@ class MainListFragment: BottomSheetDialogFragment(), OnBottomSheetCallbacks {
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
     private lateinit var resultCountTextView: TextView
+    private lateinit var bottomSheetNavigation: AppCompatImageView
     private val viewModel: MainViewModel by viewModels()
 
     private var currentState: Int = BottomSheetBehavior.STATE_EXPANDED
@@ -49,17 +51,18 @@ class MainListFragment: BottomSheetDialogFragment(), OnBottomSheetCallbacks {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as MainActivity).setOnBottomSheetCallbacks(this)
-
         resultCountTextView = view.findViewById(R.id.result_count_text_view)
+        bottomSheetNavigation = view.findViewById(R.id.bottom_sheet_navigation)
         recyclerView = view.findViewById(R.id.recyclerView)
         progressBar = view.findViewById(R.id.progress_bar)
 
-
-        resultCountTextView.setOnClickListener {
+        bottomSheetNavigation.setOnClickListener {
             if (currentState == BottomSheetBehavior.STATE_EXPANDED) {
+                bottomSheetNavigation.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
                 (activity as MainActivity).closeBottomSheet()
+
             } else  {
+                bottomSheetNavigation.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
                 (activity as MainActivity).openBottomSheet()
             }
         }
